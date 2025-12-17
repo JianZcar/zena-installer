@@ -36,6 +36,10 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOF
 
+cat << 'EOF' > /usr/lib/systemd/system-preset/99-install-zena.preset
+enable install-zena.service
+EOF
+
 systemctl enable install-zena.service
 systemctl mask systemd-remount-fs
 sudo sed -i -e 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
