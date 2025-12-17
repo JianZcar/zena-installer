@@ -47,12 +47,10 @@ if ! rpm -q dnf5 >/dev/null; then
     rpm-ostree install dnf5 dnf5-plugins
 fi
 
+rm -f /root && mkdir -p /root
 dnf5 -y install @core @container-management @hardware-support
 systemctl enable install-zena.service
 systemctl mask systemd-remount-fs
 
 sed -i -e 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
-
-sed -i -f - /usr/lib/os-release << 'EOF'
-s|^PRETTY_NAME=.*|PRETTY_NAME=\"Arch (zena) Installer\"|
-EOF
+sed -i -e 's|^PRETTY_NAME=.*|PRETTY_NAME="Arch (zena) Installer"|' /usr/lib/os-release
