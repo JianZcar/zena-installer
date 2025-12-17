@@ -1,7 +1,7 @@
 FROM scratch AS ctx
 COPY build_files /
 
-FROM ghcr.io/ublue-os/base-main:43 AS base
+FROM ghcr.io/ublue-os/ucore-minimal:stable AS base
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \

@@ -2,8 +2,7 @@
 
 set -ouex pipefail
 
-mkdir -p /usr/local/bin
-cat << 'EOF' > /usr/local/bin/install-zena.sh
+cat << 'EOF' > /usr/bin/install-zena.sh
 #!/usr/bin/env bash
 set -euxo pipefail
 
@@ -33,7 +32,7 @@ Wants=multi-user.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/install-zena.sh
+ExecStart=/usr/bin/install-zena.sh
 
 StandardOutput=tty
 StandardError=tty
