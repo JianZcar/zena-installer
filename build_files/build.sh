@@ -28,12 +28,10 @@ ConditionPathExists=/etc/zena
 [Service]
 Type=oneshot
 ExecStart=/usr/libexec/install-zena.sh
-
 StandardOutput=tty
 StandardError=tty
-TTYPath=/dev/tty1
+TTYPath=/dev/console
 TTYReset=yes
-TTYVHangup=yes
 
 RemainAfterExit=yes
 
