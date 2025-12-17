@@ -19,24 +19,18 @@ chmod +x /usr/libexec/install-zena.sh
 cat << 'EOF' > /etc/systemd/system/install-zena.service
 [Unit]
 Description=Zena installer
-Requires=local-fs.target
+After=getty@tty1.service
+Wants=getty@tty1.service
 RequiresMountsFor=/etc/zena
-After=local-fs.target sysinit.target
 
 [Service]
 Type=oneshot
-Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStart=/usr/libexec/install-zena.sh
 StandardOutput=journal+console
 StandardError=journal+console
 TTYPath=/dev/console
 TTYReset=yes
 RemainAfterExit=yes
-
-Restart=on-failure
-RestartSec=30
-StartLimitIntervalSec=600
-StartLimitBurst=5
 
 [Install]
 WantedBy=multi-user.target
