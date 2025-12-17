@@ -50,4 +50,9 @@ fi
 dnf5 install @core @container-management @hardware-support
 systemctl enable install-zena.service
 systemctl mask systemd-remount-fs
-sudo sed -i -e 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+
+sed -i -e 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+
+sed -i -f - /usr/lib/os-release << 'EOF'
+s|^PRETTY_NAME=.*|PRETTY_NAME=\"Arch (zena) Installer\"|
+EOF
