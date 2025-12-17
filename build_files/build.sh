@@ -50,7 +50,4 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOF
 
-
-dnf5 environment list --available
-dnf5 group list --available
 systemctl enable install-zena.service
