@@ -19,22 +19,21 @@ chmod +x /usr/libexec/install-zena.sh
 cat << 'EOF' > /etc/systemd/system/install-zena.service
 [Unit]
 Description=Zena installer
-Wants=getty-pre.target
-Before=getty-pre.target
-After=local-fs-pre.target
+Requires=local-fs.target
 RequiresMountsFor=/etc/zena
+After=local-fs.target sysinit.target
 
 [Service]
 Type=oneshot
 ExecStart=/usr/libexec/install-zena.sh
-StandardOutput=tty
-StandardError=tty
-TTYPath=/dev/tty1
+StandardOutput=journal+console
+StandardError=journal+console
+TTYPath=/dev/console
 TTYReset=yes
 RemainAfterExit=yes
 
 [Install]
-WantedBy=getty-pre.target
+WantedBy=multi-user.target
 EOF
 
 cat << 'EOF' > /usr/lib/systemd/system-preset/02-install-zena.preset
@@ -48,7 +47,7 @@ fi
 rm -f /root && mkdir -p /root
 dnf5 -y install @core @container-management @hardware-support
 systemctl enable install-zena.service
-systemctl mask systemd-remount-fs
+systemctl mask systemd-remount-fs getty@tty1.service
 
 sed -i -e 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 sed -i -e 's|^PRETTY_NAME=.*|PRETTY_NAME="Arch (zena) Installer"|' /usr/lib/os-release
