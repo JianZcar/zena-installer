@@ -6,10 +6,8 @@ cat << 'EOF' > /usr/local/bin/install-zena.sh
 #!/usr/bin/env bash
 set -euxo pipefail
 
-# Directory where the OCI image layout was saved at build time
 OCI_DIR="/etc/zena"
 
-# Target local reference we will import into container storage
 IMAGE_REF="ghcr.io/jianzcar/zena:stable"
 
 echo "Importing OCI image from \${OCI_DIR} into local container storage..."
@@ -20,12 +18,11 @@ skopeo copy \
 
 echo "Image imported. Switching BootC to use the local image..."
 
-# Switch BootC deployment to the local image (no registry pull)
-# using containers-storage transport
 /usr/bin/bootc switch --transport containers-storage "\${IMAGE_REF}" --apply
 
 echo "BootC switch complete; the system will reboot into the new image."
 EOF
+
 chmod +x /usr/local/bin/install-zena.sh
 
 cat << 'EOF' > /etc/systemd/system/install-zena.service
