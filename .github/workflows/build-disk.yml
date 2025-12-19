@@ -37,6 +37,16 @@ jobs:
           rootfs: btrfs
           additional-args: --use-librepo=True
 
+      - name: Upload to GoFile
+        id: gofile
+        uses: ahnafnafee/action-upload-gofile@v2.1.0
+        with:
+          token: ${{ secrets.GOFILE_TOKEN }}
+          file: ${{ steps.build-iso.outputs.output-directory }}/**/*.iso
+      
+      - name: Show GoFile URL
+        run: echo "ISO download URL:${{ steps.gofile.outputs.url }}"
+
       - name: Upload Artifact
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v5
         with:
