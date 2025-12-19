@@ -9,12 +9,12 @@ set -euxo pipefail
 echo "Importing OCI image into local container storage..."
 skopeo copy \
     --preserve-digests \
-    "oci:/etc/zena:stable" \
-    "containers-storage:ghcr.io/zerixal/zena:stable"
+    "oci:/etc/zena:latest" \
+    "containers-storage:ghcr.io/zerixal/zena:latest"
 echo "Installing Zena Arch please wait..."
-/usr/bin/bootc switch --transport containers-storage "ghcr.io/zerixal/zena:stable"
+/usr/bin/bootc switch --transport containers-storage "ghcr.io/zerixal/zena:latest"
 echo "Cleaning up local image..."
-podman image rm "ghcr.io/zerixal/zena:stable"
+podman image rm "ghcr.io/zerixal/zena:latest"
 echo "Rebooting"
 reboot
 EOF

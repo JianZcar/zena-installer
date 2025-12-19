@@ -9,6 +9,6 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh
 
-RUN skopeo copy docker://ghcr.io/zerixal/zena:stable oci:/etc/zena:stable
+RUN skopeo copy docker://ghcr.io/zerixal/zena:latest oci:/etc/zena:latest
 
 RUN bootc container lint
