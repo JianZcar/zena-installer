@@ -32,7 +32,7 @@ jobs:
         uses: osbuild/bootc-image-builder-action@main
         with:
           config-file: ./iso.toml
-          image: ghcr.io/jianzcar/zena-installer:latest
+          image: ghcr.io/zerixal/zena-installer:latest
           types: anaconda-iso
           rootfs: btrfs
           additional-args: --use-librepo=True
@@ -42,7 +42,7 @@ jobs:
         run: |
           ISO_FILE=$(find "${{ steps.build-iso.outputs.output-directory }}" -name "*.iso" | head -n1)
           echo "ISO_FILE=$ISO_FILE" >> $GITHUB_OUTPUT
-          
+
       - name: Split ISO into 1GB parts
         id: split_iso
         run: |
